@@ -44,5 +44,5 @@ client.on('message', async function (message) {
 
 
 
-client.login('NzQ0MzAxMDg1MTYxODE2MTc2.XzhOZw.zn0ONHXMIXNH9BEnEdtZJBn05IE');
+client.login('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 
