@@ -33,7 +33,7 @@ client.on('message', async function (message) {
                 return;
             }
 
-            message.channel.send(`Level of specified player: ${level}`);
+            message.channel.send(`Level of specified player is ${level}`);
         }
         else if (command === prefix + 'uuid') {
             const username = pieces.shift(); 
@@ -51,7 +51,24 @@ client.on('message', async function (message) {
                 return;
             }
 
-            message.channel.send(`UUID of specified player: ${uuid}`);
+            message.channel.send(`UUID of specified player is ${uuid}`);
+        }
+        else if(command === prefix + 'location'){
+            const username = pieces.shift();
+
+            if (!username){
+                message.channel.send('Specify a player name!');
+                return;
+            }
+
+            const location = await hypixel.getLocation(username);
+
+            if (location === null) {
+                message.channel.send('Player not found!');
+                return;
+            }
+
+            message.channel.send(`Target player is currently in ${location}`);
         }
         else if(command === prefix + 'botinfo'){
             message.channel.send("Created by SpyGood on August 15, 2020 to test discord and hypixel bot API.")
@@ -62,6 +79,6 @@ client.on('message', async function (message) {
 
 
 
-client.login('NzQ0MzAxMDg1MTYxODE2MTc2.XzhOZw.8-30Vwo3rKV3UUb9oBNk9WZqV_M');
+client.login('NzQ0MzAxMDg1MTYxODE2MTc2.XzhOZw.gw15-mywQ4AkkiOwU-AzQWfCbWs');
 
 

@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const { Console } = require('winston/lib/winston/transports');
 
-const key = 'b3e3803a-e94e-4a05-8fd5-5618f7775a24';
+const key = 'X';
 const base = 'https://api.hypixel.net';
 
 async function getPlayer(username) {
@@ -13,16 +13,48 @@ async function getPlayer(username) {
     return null;
 }
 
-//async function getStatus(username) {
-//
-//}
-
 async function getUUID(username){
     const player = await getPlayer(username);
     if (player === null) return null;
     const id = player.uuid;
     return id;
 }
+
+async function getStatus(username) {
+    const player = await getPlayer(username);
+    if (player === null) return null;
+    const uuid = player.uuid;
+    const method = `/status?key=${key}&uuid=${uuid}`;
+    console.log(method);
+    const json = await fetch(base + method).then(r => r.json());
+    console.log(json);
+    console.log(json.session)
+    if (json.success === true) return json.session;
+
+
+    return null;
+}
+
+async function getLocation(username){
+    const status = await getStatus(username);
+
+    if (status === null) return null;
+
+    const on = status.online;
+
+    if(!on){
+        var notOnline = "offline";
+        return notOnline;
+    }
+    else if(on === true){
+        const game = status.gameType;
+        const area = status.mode;
+        return game;
+    }
+    
+}
+
+
 
 async function getLevel(username) {
     const base = 10000;
@@ -40,7 +72,7 @@ async function getLevel(username) {
 }
 
 module.exports = {
-    getPlayer, getLevel, getUUID
+    getPlayer, getLevel, getUUID, getStatus, getLocation
 }
 
 
