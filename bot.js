@@ -33,7 +33,26 @@ client.on('message', async function (message) {
                 return;
             }
 
-            message.channel.send(`Level of user: ${level}`);
+            message.channel.send(`Level of specified player: ${level}`);
+        }
+        else if(command === prefix + 'botinfo'){
+            message.channel.send("Created by SpyGood on August 15, 2020 to test discord and hypixel bot API.")
+        }
+        else if (command === prefix + 'uuid') {
+            const username = pieces.shift(); 
+
+            if (!username) {
+                message.channel.send('Specify a player name!');
+                return;
+            }
+            try{
+                const level = await hypixel.getUUID(username);
+                message.channel.send(`UUID of specified player: ${level}`);
+            }
+            catch{
+                message.channel.send("Invalid username!");
+            }
+            
         }
         else if(command === prefix + 'botinfo'){
             message.channel.send("Created by SpyGood on August 15, 2020 to test discord and hypixel bot API.")
@@ -44,5 +63,5 @@ client.on('message', async function (message) {
 
 
 
-client.login('NzQ0MzAxMDg1MTYxODE2MTc2.XzhOZw.zn0ONHXMIXNH9BEnEdtZJBn05IE');
+client.login('');
 

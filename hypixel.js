@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { Console } = require('winston/lib/winston/transports');
 
 const key = 'b3e3803a-e94e-4a05-8fd5-5618f7775a24';
 const base = 'https://api.hypixel.net';
@@ -12,9 +13,17 @@ async function getPlayer(username) {
     return null;
 }
 
-async function getUUID(username2){
+async function getUUID(username){
     const userName = await getPlayer(username);
-    
+    const id = userName.uuid;
+    if(id === null){
+        return null;
+    }
+    else{
+        return id;
+    }
+
+    if(id === null) return null;
 }
 
 async function getLevel(username) {
@@ -33,7 +42,7 @@ async function getLevel(username) {
 }
 
 module.exports = {
-    getPlayer, getLevel,
+    getPlayer, getLevel, getUUID
 };
 
 
