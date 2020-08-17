@@ -13,17 +13,15 @@ async function getPlayer(username) {
     return null;
 }
 
-async function getUUID(username){
-    const userName = await getPlayer(username);
-    const id = userName.uuid;
-    if(id === null){
-        return null;
-    }
-    else{
-        return id;
-    }
+//async function getStatus(username) {
+//
+//}
 
-    if(id === null) return null;
+async function getUUID(username){
+    const player = await getPlayer(username);
+    if (player === null) return null;
+    const id = player.uuid;
+    return id;
 }
 
 async function getLevel(username) {
@@ -43,8 +41,7 @@ async function getLevel(username) {
 
 module.exports = {
     getPlayer, getLevel, getUUID
-};
-
+}
 
 
 
